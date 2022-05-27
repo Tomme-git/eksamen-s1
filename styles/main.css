@@ -1,0 +1,993 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+:root {
+    --orangered: #e55900;
+    --yellow: #fffcb0;
+    --yellowgreen: #cfd1a1;
+    --darkgreen: #6a744f;
+    --bluegreen: #007f74;
+}
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    text-decoration:none;
+    font-family: 'Open Sans', sans-serif;
+}
+
+*, html, body {
+    scroll-behavior: smooth; /** Only works in Firefox by default, has to be enabled by the user in Chrome(for some reason) URL: chrome://flags/#smooth-scrolling **/
+}
+
+.anchor { 
+    /** This piece of code allows me to link to an id on the same page without the sticky header covering the content **/
+    /** Source: Top Answer: https://stackoverflow.com/questions/1418838/html-making-a-link-lead-to-the-anchor-centered-in-the-middle-of-the-page **/
+    height: 130px; /*same height as nav*/
+    margin-top: -130px; /*same height as nav*/
+    visibility: hidden;
+    display: block;
+}
+
+/************************************ HEADER ************************************/
+
+header {   
+    background-color: var(--bluegreen);
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top:-70px; /** difference between .header height and nav height, this is done to make the header slightly smaller when scrolling to not take up as much of the screen **/
+    z-index:3;
+    border-bottom: 2px solid var(--orangered);
+}
+
+nav {
+    width: 100%;
+    height: 130px;   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    gap: 1.2rem;
+    z-index: 4;
+}
+
+nav > a > img {
+    padding: 0; /** 1rem = 16px, rem = root element, it represents the font size for the root element, 16px is the default. **/
+}
+
+nav > div {
+    display: flex;
+    gap: 5vw; /** vw = viewport width (width of the user's display (browser width)), 5vw = 5% of viewport width **/
+}
+
+.link {
+    background: none;
+    border: none;
+    color:var(--yellow);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1.5rem;
+    color: var(--yellow);
+    transition: 0.2s ease-in-out;
+    padding: 0;
+    transition: 0.2s ease-in;
+    font-weight:bold;
+}
+
+.arrow {
+    width: 0; 
+    height: 0;
+    display: inline-block;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid var(--yellow);
+    transition: 0.2s ease-in;
+    margin-left:5px;
+}
+
+.link:hover, .link:focus, .arrow:hover, .arrow:focus {
+    color: var(--orangered);
+}
+
+.link:hover + .arrow, .link:focus + .arrow {
+    width: 0; 
+    height: 0;
+    display: inline-block;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid var(--orangered);
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown a:hover {
+    color: var(--orangered);
+}
+
+.dropdown-menu {
+    position: absolute;
+    width: max-content;
+    left: 0; /** All the way to the left of the first positioned parent element (.dropdown) **/
+    top: calc(100% + .25rem); /** calc() just calculates the input, in this case it's 100% + 4px (.25 of 1rem) - all the way at the top and 4 pixels down **/
+    background-color: var(--bluegreen);
+    padding: .75rem;
+    border-radius: .25rem;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .2);
+    opacity: 0;
+    pointer-events: none; /** Makes the element uninteractable (which we want since its opacity is 0 **/
+    transform: translateY(-10px);
+    transition: opacity 200ms ease-in-out, transform 200ms ease-in-out;
+}
+
+.dropdown > .link:focus ~ .dropdown-menu, .dropdown-menu:hover {
+    opacity: 1;
+    pointer-events: auto; /** makes the element interactable **/
+    transform: translateY(0); 
+}
+
+.dropdown-menu > a {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border-bottom: 1px solid var(--orangered);
+    font-size: 1.2rem;
+    color: var(--yellow);
+}
+
+.dropdown-menu > a:last-child {
+    border: none;
+}
+
+#burgermenu {
+    display: none;
+}
+
+/************************************ HERO SECTION ************************************/
+
+#hero {
+    width: 75%;
+    height: 600px;
+    margin:1rem auto 10rem auto;
+    color: var(--yellow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--orangered);
+    position: relative;
+    background-color: black;
+}
+
+
+/** Make the background more transparent (darker due to the bg-color set above) without affecting the text elements inside **/
+#hero::before {
+    content: ''; 
+    background-image: url("../images/hero-image.jpg");
+    background-repeat:no-repeat;
+    background-size: cover;
+    background-position: center;
+    opacity: .75;
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+}
+
+#hero h1 {
+    font-size: 3rem;
+    padding-bottom: 6rem;
+    font-weight: bold;
+    position: relative;
+    text-shadow: 2px 2px 4px black;
+}
+
+#hero p {
+    font-size: 1.5rem;
+    width: 30vw;
+    min-width:300px;
+    text-align: center;
+    position: relative;
+    text-shadow: 2px 2px 4px black;
+}
+
+/************************************ MAIN CONTENT ************************************/
+
+main {
+    width: 100%;
+}
+
+main h1 {
+    color: var(--darkgreen);
+    font-weight: bold;
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+main h2 {
+    color: var(--darkgreen);
+    text-align: center;
+    font-size:2.5rem;
+}
+
+main p {
+    color: var(--darkgreen);
+    font-size: 1rem;
+}
+
+main > section {
+    min-height: calc(100vh - 130px);
+    width: 100%;
+}
+
+/** READ MORE BUTTON **/
+.readmore{
+    height:80px;
+    width: 320px;
+    background-color: var(--bluegreen);
+    color: var(--yellow);
+    border: 1px solid var(--orangered);
+    font-size: 2rem;
+    box-shadow: 4px 6px 16px grey;
+    text-shadow: 2px 2px 4px black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin:7rem auto 5rem auto;
+}
+
+/************************************ ABOUT ME SECTION ************************************/
+
+#aboutme {
+    display: flex;
+    flex-wrap:wrap;
+}
+
+/** HVAD KAN JEG **/
+.hvad {
+    width: 50%;
+    margin-top: 3rem;
+    border-right: 1px solid var(--orangered);
+}
+
+.hvad > h1 {
+    margin-bottom: 2rem;
+}
+
+.hvad > p {
+    width: 25vw;
+    margin: 0 auto;
+}
+
+/** HVEM ER JEG **/
+.hvem {
+    width: 50%;
+    padding-top: 3rem;
+}
+
+.hvem > figure {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.hvem > p {
+    width: 25vw;
+    margin: 0 auto;
+}
+
+/************************************ MY WORKS SECTION ************************************/
+#myworks {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+#myworks > h2 {
+    margin: 5rem 0 4rem 0;
+}
+
+#myworks > img {
+    width: 60%;
+    max-width:1000px;
+    align-self: center;
+}
+
+#myworks > img:nth-of-type(2) {
+    display: none;
+}
+
+/** BOOKS **/
+.books {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.books > h2 {
+    margin: 0 0 4rem 0;
+}
+
+.books > div {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 5vw 2vw;
+}
+
+.books > div > a {
+    width: 25%;
+    max-width: 381px;
+    min-width: 300px;
+    transition: 0.4s ease-in-out;
+}
+
+.books > div > a:hover {
+    transform: scale(1.05);
+}
+
+.books > div > a > img {
+    width: 100%;
+    min-width: 300px;
+    height: auto;
+}
+
+.books > div > a:first-child > img {
+    box-shadow: 5px 8px 20px black;
+}
+
+.books > div > a:nth-child(2) > img {
+    box-shadow: 5px 8px 20px grey;
+}
+
+.books > div > a:nth-child(3) > img {
+    box-shadow: 5px 8px 20px #88734a;
+}
+
+.books > div > a:nth-child(4) > img {
+    box-shadow: 5px 8px 20px #9b7c3e;
+}
+
+/** VIND EN BOG / TILMELD NYHEDSBREV **/
+.winprize {
+    width: 59%;
+    border:4px solid var(--orangered);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bluegreen);
+    padding: 10px;
+    box-shadow: 5px 8px 20px rgb(85, 107, 133);
+}
+
+
+.winprize > div {
+    width: 80%;
+}
+
+.winprize > div > h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--yellow);
+}
+
+.winprize > div > h3 {
+    width: 100%;
+    max-width: max-content;
+    margin: 0 auto;
+    color: var(--yellow);
+    text-align: center;
+}
+
+.winprize > div:nth-of-type(2) {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+}
+
+.winprize > div > img {
+    width: 40%;
+    max-width: 406px;
+    max-height: 424px;    
+}
+
+/** Win a book form **/
+.winprize > div > form {
+    width: 40%;
+}
+
+.winprize > div > form > input {
+    width: 20vw;
+    height: 6vw;
+    margin: 10px 0;
+    box-shadow: 5px 8px 20px grey;
+    transition: 0.2s ease-in-out;
+    text-align: center;
+    font-size: 1.05vw;
+    border: 1px solid var(--orangered);
+}
+
+.winprize > div > form > input:hover, .winprize > div > form > input:focus  {
+    height:7vw;
+}
+
+.winprize > div > form > button {
+    width: 20vw;
+    height: 5vw;
+    background-color: var(--yellow);
+    border: 1px solid var(--bluegreen);
+    box-shadow: 5px 8px 20px grey;
+    cursor:pointer;
+    transition: 0.2s ease-in-out;
+    font-size: 1.2rem;
+    color: var(--bluegreen);
+    text-shadow: 2px 2px 4px black;
+    font-weight: bold;
+    border:1px solid var(--orangered);
+}
+
+.winprize > div > form > button:hover {
+    height:100px;
+    font-size:1.3rem;
+}
+
+/** FOREDRAG & INTERVIEWS **/
+.foredrag {
+    width: 100%;
+    padding:0 55px;
+    margin-top: 12rem;
+}
+
+.foredrag > h2 {
+    margin:0 0 4rem 0;
+}
+
+.foredrag > .cards {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4vw;
+    justify-content: center;
+}
+
+.foredrag > .cards > a {
+    min-width: 300;
+    max-width: 305px;
+    height:475px;
+}
+
+.foredrag > .cards > a > div {
+    height:100%;
+    min-width: 100%;
+    max-width: 100%;
+    border: 1px solid var(--orangered);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.4s ease-in-out;
+    box-shadow: 5px 8px 20px grey;
+}
+
+.foredrag > .cards > a > div:hover {
+    transform: scale(1.05);
+}
+
+.foredrag > .cards > a > div > img {
+    width: 100%;
+}
+
+.foredrag > .cards > a > div > h2 {
+    font-size:1rem;
+    padding:20px;
+}
+
+.foredrag > .cards > a > div > p {
+    padding: 0 20px 20px 20px;
+    font-size: .85rem;
+}
+
+.foredrag > .cards > a > div > ul {
+    padding: 0 20px 20px 40px;
+}
+
+.foredrag > .cards > a > div > ul > li{
+    color: var(--yellowgreen);
+    list-style-type: circle;
+    font-size: .85rem;
+}
+
+/************************************ MENU PAGE ************************************/
+.menuwrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 110px);
+    gap: 10%;
+    background: var(--yellow);
+}
+
+.menuwrapper a {
+    font-weight: 500;
+    font-size: 1.5em;
+    color: black;
+    text-transform: uppercase;
+    text-align: center;
+    border-left: 4px var(--orangered);
+    transition: 0.5s ease;
+    padding-left: 1ch;
+}
+
+/** 
+
+    "X" to close the menu
+
+    solution found here: 
+        https://stackoverflow.com/questions/18920542/draw-an-x-in-css
+            3rd answer
+**/
+.closemenu {
+    position: relative;
+    height: 50px; /* height of the "X" clickable area */
+    width: 50px;  /* size of the "X" */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.closemenu::before {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 5px; /* half X thickness (black bar) */
+    background-color: black;
+    border: 1px solid black;
+}
+
+.closemenu::after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 5px; /* other half X thickness (yellow bar) */
+    background-color: var(--yellow);
+    border:1px solid black;
+}
+
+.closemenu::before {
+    transform: rotate(45deg); /* black bar of the "X" */
+}
+
+.closemenu::after {
+    transform: rotate(-45deg); /* yellow bar of the "X" */
+}
+
+/************************************ OMMIG PAGE ************************************/
+
+#ommig {
+    display: flex;
+    margin-top: 4rem;
+}
+
+#ommig > div {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+#ommig > div > h1 {
+    text-align: initial;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 0 1rem;
+    width: 80%;
+}
+
+#ommig > div > h2 {
+    display: block;
+    text-align: initial;
+    width: 80%;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 0 1rem;
+    font-size: 1rem;
+}
+
+#ommig > div > p{
+    padding: .75rem 1rem;
+    width:80%;
+    margin:0 auto;
+}
+
+#ommig  > div > img {
+    width:500px;
+    position: sticky;
+    top:48vh;
+    margin: 0 auto;
+}
+
+/************************************ LOW FODMAP smagsprøve PAGE ************************************/
+
+#lowfodmapone li {
+    color: var(--darkgreen);
+}
+
+#lowfodmapone > section {
+    display: flex;
+    margin-top: 5rem;
+    justify-content: center;
+}
+
+#lowfodmapone > h1 {
+    margin-top: 5rem;
+}
+
+#lowfodmapone > section > img {
+    width: 30%;
+    height: 100%;
+    margin: 0 3rem;
+    box-shadow: 5px 8px 20px black;
+}
+
+#lowfodmapone > section > div {
+    width: 70%;
+}
+
+#lowfodmapone > section > div > h2 {
+    margin-bottom: 3rem;
+    width: max-content;
+}
+
+#lowfodmapone > section > div > div {
+    display: flex;
+    gap: 5rem;
+}
+
+#lowfodmapone > section > div > div > div:first-child{
+    width:70%
+}
+
+#lowfodmapone > section > div > div > div:nth-child(2){
+    width:30%
+}
+
+/************************************ MENU PAGE ************************************/
+footer {
+    border-top:2px solid var(--orangered);
+    background-color: var(--bluegreen);
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 20px;
+    align-items: center;
+}
+
+footer p {
+    color: var(--yellow);
+
+}
+
+
+/************************************ MEDIA QUERY FOR MOBILE SIZE ************************************/
+@media only screen and (max-width:768px) {
+    /** mobile header **/
+    header {
+        height:110px;
+        top:0;
+    }
+
+    nav {
+        flex-direction: row;
+        justify-content: space-around;
+        height:110px;
+    }
+    
+    nav > a {
+        padding:0;
+    }
+
+    nav > a > img {
+        padding: 0;
+    }
+
+    nav > div {
+        display: none;
+    }
+
+    #burgermenu {
+        display: flex;
+    }
+
+    /** mobile hero **/
+    #hero {
+        width: 100%;
+        height: 50vh;
+        margin-bottom:0;
+    }
+
+    #hero::before {
+        background-position: 20%;
+    }
+
+    #hero h1 {
+        font-size: 2rem;
+        padding-bottom:2rem;
+    }
+
+    #hero p {
+        font-size:1.2rem;
+        width: 60vw;
+    }
+
+    /** mobile read more **/
+    .readmore {
+        margin-top: 3rem;
+        width:100%;
+        max-width: 300px;
+        font-size: 1.5rem;
+    }
+
+    /** mobile about me**/
+    #aboutme {
+        flex-direction: column;
+    }
+
+    #hvem {
+        /* 
+        the order property allows you to individually order your flex-item
+        ~~~~~~~~~Learned through the flexbox game "flexboxfroggy (flexboxfroggy.com)" :)~~~~~~~~~
+
+        This solution is necessary in this case because of how the anchors work on mobile size
+
+        first in line
+        */
+        order:-2;
+    }
+
+    .hvem{
+        width: 100%;
+        margin-bottom: 1rem;
+
+        /* second in line */
+        order:-1;
+    } 
+
+    #hvad {
+        /* third in line */
+        order:0;
+    }
+
+    .hvad {
+        width: 100%;
+        border: none;
+
+        /* fourth in line */
+        order: 1;
+    }
+
+    .hvem > p, .hvad > p {
+        width: 80vw;
+    }
+
+    #aboutme .readmore {
+        /* fifth in line */
+        order:2;
+
+    }
+
+    /** mobile my works **/
+    #myworks > img {
+        width:100%;
+    }
+
+    #myworks > img:nth-of-type(1){
+        display: none;
+    }
+
+    #myworks > img:nth-of-type(2){
+        display: block;
+    }
+
+    /** mobile books **/
+    .books {
+        width: 100%;
+        margin: 0 auto;
+    }
+    
+    .books > div > a {
+        width: 90%;
+        min-width: 250px;
+    }
+
+    .books > div > a > img {
+        width: 100%;
+        min-width: 250px;
+    }
+
+    .books > div > a:nth-child(4) > img{
+        display: none;
+    }
+
+    /** mobile win prize **/
+    .winprize {
+        width: 90%;
+        padding:0;
+    }
+
+    .winprize > div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .winprize > div:nth-of-type(2) {
+        flex-direction: column;
+        
+    }
+
+    .winprize > div > h2 {
+        width: 100%;
+        margin: 0 auto;
+        padding: 0.5rem 0 1rem 0;
+        font-size: 1.5rem;
+    }
+
+    .winprize > div > h3 {
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    .winprize > div > img {
+        margin-bottom: 1rem;
+    }
+
+    .winprize > div > form {
+        width: 95%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .winprize > div > form > input {
+        margin-bottom: 1rem; 
+        font-size: 1rem;
+        width:100%;
+        height: 100px;
+    }
+
+    .winprize > div > form > input:hover, .winprize > div > form > input:focus {
+        height: 140px;
+    }
+
+    .winprize > div > form > button {
+        margin-bottom: 1rem;  
+        width:100%;
+        height:80px;
+    }
+
+    /** mobile foredrag & omtale **/
+
+    .foredrag {
+        padding:0;
+    }
+
+    .foredrag > .cards {
+        width:90%;
+        margin:0 auto;
+    }
+
+    .foredrag > .cards > a{
+        width:100%;
+        max-width: 400px;
+    }
+
+    .foredrag > .cards > a > img{
+        width:100%;
+    }
+
+    .foredrag > .cards > a > div > h2{
+        padding: 5px;
+    }
+
+    /** mobile menu page **/
+    #menuheader {
+        height:110px;
+        top:0;
+    }
+
+    .menuwrapper {
+        gap:7%;
+    }
+    .menuwrapper a {
+        border: 2px solid black;
+        background-color: var(--bluegreen);
+        color: var(--yellow);
+        width: 320px;
+        padding:10px 0;
+        white-space: nowrap;
+        box-shadow: 5px 8px 20px grey;
+        text-shadow: 2px 2px 4px black;
+    }
+
+    .menuwrapper a:nth-child(4) {
+        border: 4px solid var(--orangered);
+        background-color: var(--yellow);
+        color: var(--bluegreen);
+    }
+
+    /** mobile om mig page **/
+    #ommig h2 {
+        width: 80%;
+        max-width: 500px;
+    }
+
+    #ommig p{
+        width: 80%;
+        max-width: 500px;
+    }
+
+    #ommig > div {
+        width: 100%;
+    }
+
+    #ommig > div:nth-child(2) {
+        display: none;
+    }
+
+    /** mobile low fodmap smagsprøve page **/
+
+    #lowfodmapone > section {
+        flex-direction: column;
+        margin:0;
+        align-items: center;
+    }
+
+    #lowfodmapone > section > img {
+        width: 90%;
+        height: 100%;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+    }
+    
+    #lowfodmapone > section > div {
+        width: 90%;
+        
+    }
+
+    #lowfodmapone > section > div > h2 {
+        width: 100%;
+        font-size: 1.5rem;
+    }
+
+    #lowfodmapone > section > div > div {
+        flex-direction: column-reverse;
+        gap:1rem;
+    }
+
+    #lowfodmapone > section > div > div > div:first-child, #lowfodmapone > section > div > div > div:nth-child(2){
+        width: 100%;
+        margin-bottom:1rem;
+        margin: 0 auto 1rem;
+    }
+
+    #lowfodmapone > section > div > div > div:nth-child(2){
+        width: max-content;
+    }
+
+
+    /** mobile footer **/
+    footer {
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    footer p {
+        width: 100%;
+        text-align: center;
+    }
+}
