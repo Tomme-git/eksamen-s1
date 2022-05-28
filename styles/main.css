@@ -309,8 +309,7 @@ main > section {
 
 /** BOOKS **/
 .books {
-    width: 80%;
-    margin: 0 auto;
+    width: 100%;
 }
 
 .books > h2 {
@@ -318,17 +317,21 @@ main > section {
 }
 
 .books > div {
+    width: 75%;
+    /**
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: wrap;
-    width: 100%;
-    gap: 5vw 2vw;
+    gap: 2rem 0;
+    **/
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap:2rem 5rem;
+    margin: 0 auto;
 }
 
 .books > div > a {
-    width: 25%;
-    max-width: 381px;
-    min-width: 300px;
     transition: 0.4s ease-in-out;
 }
 
@@ -337,8 +340,7 @@ main > section {
 }
 
 .books > div > a > img {
-    width: 100%;
-    min-width: 300px;
+    max-width: 100%;
     height: auto;
 }
 
@@ -360,7 +362,8 @@ main > section {
 
 /** VIND EN BOG / TILMELD NYHEDSBREV **/
 .winprize {
-    width: 59%;
+    grid-column-start: 2;
+    grid-column-end: 4;
     border:4px solid var(--orangered);
     display: flex;
     flex-direction: column;
@@ -369,15 +372,16 @@ main > section {
     background-color: var(--bluegreen);
     padding: 10px;
     box-shadow: 5px 8px 20px rgb(85, 107, 133);
+    max-height:597px;
 }
 
 
 .winprize > div {
-    width: 80%;
+    width: 100%;
 }
 
 .winprize > div > h2 {
-    font-size: 2rem;
+    font-size: 1.5vw;
     margin-bottom: 1rem;
     color: var(--yellow);
     text-shadow: none;
@@ -389,6 +393,7 @@ main > section {
     margin: 0 auto;
     color: var(--yellow);
     text-align: center;
+    font-size:1vw;
 }
 
 .winprize > div:nth-of-type(2) {
@@ -432,7 +437,7 @@ main > section {
     box-shadow: 5px 8px 20px grey;
     cursor:pointer;
     transition: 0.2s ease-in-out;
-    font-size: 1.2rem;
+    font-size: 2vw;
     color: var(--bluegreen);
     text-shadow: 2px 2px 4px black;
     font-weight: bold;
@@ -447,7 +452,6 @@ main > section {
 /** FOREDRAG & INTERVIEWS **/
 .foredrag {
     width: 100%;
-    padding:0 55px;
     margin-top: 12rem;
 }
 
@@ -456,17 +460,26 @@ main > section {
 }
 
 .foredrag > .cards {
-    width: 100%;
+    width: 75%;
+    /**
     display: flex;
     flex-wrap: wrap;
     gap: 4vw;
     justify-content: center;
+    **/
+
+    display:grid;
+    grid-template-columns: repeat(auto-fit, 305px);
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
 }
 
 .foredrag > .cards > a {
-    min-width: 300;
-    max-width: 305px;
+    width: 305px;
     height:475px;
+    place-self: center;
 }
 
 .foredrag > .cards > a > div {
@@ -681,6 +694,53 @@ footer p {
 
 }
 
+/************************************ MEDIA QUERY FOR DESIGN MALFUNCTIONS ************************************/
+@media only screen and (max-width:855px) {
+
+    .books > div {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .books > div > .winprize {
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+
+    .winprize > div > h2 {
+        font-size: 1.5rem;
+    }
+
+    .winprize > div > h3 {
+        font-size: 1rem;
+    }
+
+    .winprize > div > img {
+        margin-bottom: 1rem;
+        max-width: 150px;
+    }
+
+    .winprize > div > form {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .winprize > div > form > input {
+        width: 100%;
+    }
+
+    .winprize > div > form > button {
+        width: 100%;
+    }
+    
+    .foredrag > .cards {
+        width:100%;
+        margin:0 auto;
+        display: flex;
+        flex-wrap:wrap;
+        justify-content: center;
+    }
+}
 
 /************************************ MEDIA QUERY FOR MOBILE SIZE ************************************/
 @media only screen and (max-width:768px) {
@@ -807,15 +867,26 @@ footer p {
         width: 100%;
         margin: 0 auto;
     }
+
+    .books > div {
+        display: flex;
+        width: 100%;
+        flex-wrap:wrap;
+        justify-content: center;
+    }
     
     .books > div > a {
         width: 90%;
         min-width: 250px;
+        display: flex;
+        justify-content: center;
     }
 
     .books > div > a > img {
         width: 100%;
         min-width: 250px;
+        height: auto;
+        max-width:500px;
     }
 
     .books > div > a:nth-child(4) > img{
@@ -831,6 +902,7 @@ footer p {
     .winprize > div {
         display: flex;
         flex-direction: column;
+        width:100%
     }
 
     .winprize > div:nth-of-type(2) {
@@ -841,7 +913,7 @@ footer p {
     .winprize > div > h2 {
         width: 100%;
         margin: 0 auto;
-        padding: 0.5rem 0 1rem 0;
+        padding: 0.5rem 1rem 1rem 1rem;
         font-size: 1.5rem;
     }
 
@@ -852,6 +924,7 @@ footer p {
 
     .winprize > div > img {
         margin-bottom: 1rem;
+        max-width: 150px;
     }
 
     .winprize > div > form {
@@ -877,6 +950,7 @@ footer p {
         margin-bottom: 1rem;  
         width:100%;
         height:80px;
+        font-size: 1.5rem;
     }
 
     /** mobile foredrag & omtale **/
@@ -885,14 +959,11 @@ footer p {
         padding:0;
     }
 
-    .foredrag > .cards {
-        width:90%;
-        margin:0 auto;
-    }
+    
 
     .foredrag > .cards > a{
-        width:100%;
-        max-width: 400px;
+        width:90%;
+        max-width: 305px;
     }
 
     .foredrag > .cards > a > img{
