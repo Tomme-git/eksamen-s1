@@ -21,7 +21,7 @@
 }
 
 .anchor { 
-    /** This piece of code allows me to link to an id on the same page without the sticky header covering the content **/
+    /** This piece of code allows me to link to an id on the same page without the sticky header covering the content when taken to the anchor **/
     /** Source: Top Answer: https://stackoverflow.com/questions/1418838/html-making-a-link-lead-to-the-anchor-centered-in-the-middle-of-the-page **/
     height: 130px; /*same height as nav*/
     margin-top: -130px; /*same height as nav*/
@@ -289,22 +289,7 @@ main > section {
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
-}
-
-#myworks > h2 {
-    margin: 5rem 0 4rem 0;
-    text-shadow: none;
-}
-
-#myworks > img {
-    width: 60%;
-    max-width:1000px;
-    align-self: center;
-}
-
-#myworks > img:nth-of-type(2) {
-    display: none;
+    margin: 4rem auto 0 auto;
 }
 
 /** BOOKS **/
