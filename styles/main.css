@@ -794,7 +794,7 @@ footer p {
     #hvem {
         /* 
         the order property allows you to individually order your flex-item
-        ~~~~~~~~~Learned through the flexbox game "flexboxfroggy (flexboxfroggy.com)" :)~~~~~~~~~
+        ~~~~~~~~~Learned through the flexbox game "flexboxfroggy (flexboxfroggy.com)" a long time ago :)~~~~~~~~~
 
         This solution is necessary in this case because of how the anchors work on mobile size
 
@@ -1043,7 +1043,6 @@ footer p {
     #lowfodmapone > section > div > div > div:nth-child(2){
         width: max-content;
     }
-
 
     /** mobile footer **/
     footer {
